@@ -1,0 +1,21 @@
+/* My app css stylesheet */
+h1 {
+    font-size: 4em;
+    color: maroon;
+    text-align: center;
+    margin: 0.67em 0;
+}
+
+body {
+    background: #faebd7;
+    margin: 1em;
+}
+
+#para1 {
+    text-align: center;
+    color: darkslateblue;
+}
+
+.mylist {
+    font-family: Georgia;
+}

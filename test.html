@@ -1,22 +1,42 @@
 <!-- A test html file for CINS 465 -->
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en" dir="ltr">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Title</title>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body>
-
-    <h1>This is a Heading</h1>
-    <h2>This is a smaller heading</h2>
-    <p>This is a paragraph.</p>
-    <ol>
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h1>This is a Heading</h1>
+                <h2>This is a smaller heading</h2>
+            </div>
+        </div>
+        <div class="grid-x grid-padding-x">
+            <div class="large-4 medium-6 cell">
+                <p><a href="https://get.foundation/sites/docs/">Foundation Documentation</a><br />Everything you need to
+                    know about using the framework.</p>
+            </div>
+            <div class="large-8 medium-6 cell">
+                <p><a href="https://github.com/foundation/foundation-sites/discussions">Foundation Forum</a><br />Join
+                    the Foundation community to ask a question or show off your knowlege.</p>
+            </div>
+        </div>
+    </div>
+    <p id="para1">This is a paragraph.</p>
+    <ol class="mylist">
         <li><b>Ordered list item #1</b></li>
         <li><strong>Ordered list item #2</strong></li>
         <li>Ordered list item #3</li>
     </ol>
-    <ul>
+    <ul class="mylist">
         <li><i>Unordered list item #1</i></li>
         <li><em>Unordered list item #2</em></li>
         <li>Unordered list item #3</li>
@@ -38,6 +58,11 @@
     </table>
     <br>
     <a href="https://www.csuchico.edu/">CSU, Chico Homepage</a>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
