@@ -77,8 +77,43 @@ class Person2:
         self.age = age
 
     def __str__(self):
-        return "%s: %d years old" % (self.name, self.age)
+        #return "%s: %d years old" % (self.name, self.age)
+        #return self.name + ": " + str(self.age) + " years old"
+        return f"{self.name}: {self.age} years old"
+
+    def __repr__(self):
+        return f"""
+This person's name is {self.name},
+and they are {self.age} years old.
+Happy Birthday!
+        """
+
+    def set_age(self, age):
+        self.age = age
+
+    def get_age(self):
+        return self.age
 
 p = Person2("Mo", 40)
 print(p)
 print(p.name)
+print(repr(p))
+print(f"{p!r}")
+p.set_age(41)
+age = p.get_age()
+print(age)
+
+class Student(Person2):
+    def __init__(self, name, age, year):
+        Person2.__init__(self, name, age)
+        self.year = year
+
+    def __str__(self):
+        return Person2.__str__(self) + "\n" + self.name +", class of " + str(self.year)
+
+s = Student("Shelley", 42, 2021)
+age = s.get_age()
+print(s.name + " " + str(age))
+print(s)
+
+
