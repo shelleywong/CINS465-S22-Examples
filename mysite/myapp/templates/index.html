@@ -9,6 +9,11 @@
         <div class="small-12 cell">
             <img src="{% static 'assets/csuc-homepage-banner-xlarge.jpeg' %}" alt="CSU, Chico image">
             <h1>{{ message }}</h1>
+            <ol>
+                {% for q in q_list %}
+                <li>{{ q.question_text }}</li>
+                {% endfor %}
+            </ol>
         </div>
     </div>
     <div class="grid-x grid-padding-x">
