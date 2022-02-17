@@ -1,30 +1,35 @@
 <!-- index.html file for CINS 465 -->
-<!DOCTYPE html>
-<html class="no-js" lang="en" dir="ltr">
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-</head>
-
-<body>
-    <h1>{{ message }}</h1>
-    {% if prev >= 0 %}
-    <a href="/{{ prev }}">Prev</a>
-    {% endif %}
-    <a href="/{{ next }}">Next</a>
-    <ul>
-        {% for p in page_list %}
-        <li>{{ p }}</li>
-        {% endfor %}
-    </ul>
-    <ol>
-        {% for value in squares %}
-            <li>{{ value }}</li>
-        {% endfor %}
-    </ol>
-</body>
-
-</html>
+{% block content %}
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 cell">
+            <img src="{% static 'assets/csuc-homepage-banner-xlarge.jpeg' %}" alt="CSU, Chico image">
+            <h1>{{ message }}</h1>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-8 medium-6 cell">
+            {% if prev >= 0 %}
+            <a href="/{{ prev }}">Prev</a>
+            {% endif %}
+            <a href="/{{ next }}">Next</a>
+            <ul>
+                {% for p in page_list %}
+                <li>{{ p }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="large-4 medium-6 cell">
+            <ol>
+                {% for value in squares %}
+                <li>{{ value }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
