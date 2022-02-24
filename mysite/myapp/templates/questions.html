@@ -11,6 +11,16 @@
             <h1>{{ message }}</h1>
             <a href="/" class="button">Home</a>
             <a class="alert button" href="/likes">Like a random question</a>
+            <br>
+            <form action="/questions/" method="post">
+                {% csrf_token %}
+                {{ q_form.errors }}
+                <label for="question_label">
+                    {{ q_form.question_text.label }}
+                </label>
+                {{ q_form.question_text }}
+                <input type="submit" value="Submit Your Question" class="button"></input>
+            </form>
             <ol>
                 {% for q in q_list %}
                 <li>{{ q.question_text }} 

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from . import models
+from . import forms
 
 # Create your views here.
 def index(request, page=0):
@@ -20,11 +21,21 @@ def index(request, page=0):
     return render(request, 'index.html', context=context)
 
 def questions(request):
+    if request.method == "POST":
+        q_form = forms.QuestionForm(request.POST)
+        if q_form.is_valid():
+            q_form.save()
+            q_form = forms.QuestionForm()
+
+    else: # GET and other methods
+        q_form = forms.QuestionForm()
+
     q_list = models.QuestionModel.objects.all()
     context = {
         "title": "CINS 465 Questions",
         "message": "Questions",
-        "q_list": q_list
+        "q_list": q_list,
+        "q_form": q_form
     }
     return render(request, 'questions.html', context=context)
 
