@@ -1,0 +1,24 @@
+<!-- index.html file for CINS 465 -->
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="small-12 cell">
+            <img src="{% static 'assets/csuc-homepage-banner-xlarge.jpeg' %}" alt="CSU, Chico image">
+            <h1>{{ message }}</h1>
+            <a href="/" class="button">Home</a>
+            <a class="alert button" href="/likes">Like a random question</a>
+            <ol>
+                {% for q in q_list %}
+                <li>{{ q.question_text }} 
+                    - {{ q.pub_date }}, {{ q.likes }}
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
