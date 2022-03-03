@@ -23,14 +23,25 @@ def index(request, page=0):
 def questions(request):
     if request.method == "POST":
         q_form = forms.QuestionForm(request.POST)
-        if q_form.is_valid():
-            q_form.save()
+        if q_form.is_valid() and request.user.is_authenticated:
+            q_form.save(request)
             q_form = forms.QuestionForm()
 
     else: # GET and other methods
         q_form = forms.QuestionForm()
 
-    q_list = models.QuestionModel.objects.all()
+    q_objects = models.QuestionModel.objects.all()
+    q_list = []
+    for quest in q_objects:
+        a_objects = models.AnswerModel.objects.filter(question=quest)
+        temp = {}
+        temp["question_text"] = quest.question_text
+        temp["pub_date"] = quest.pub_date
+        temp["likes"] = quest.likes
+        temp["author"] = quest.author.username
+        temp["answers"] = a_objects
+        q_list += [temp]
+
     context = {
         "title": "CINS 465 Questions",
         "message": "Questions",

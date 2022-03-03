@@ -12,6 +12,7 @@
             <a href="/" class="button">Home</a>
             <a class="alert button" href="/likes">Like a random question</a>
             <br>
+            {% if request.user.is_authenticated %}
             <form action="/questions/" method="post">
                 {% csrf_token %}
                 {{ q_form.errors }}
@@ -21,10 +22,16 @@
                 {{ q_form.question_text }}
                 <input type="submit" value="Submit Your Question" class="button"></input>
             </form>
+            {% endif %}
             <ol>
                 {% for q in q_list %}
                 <li>{{ q.question_text }} 
                     - {{ q.pub_date }}, {{ q.likes }}
+                    <ul>
+                        {% for a in q.answers %}
+                        <li>{{ a.answer_text }}</li>
+                        {% endfor %}
+                    </ul>
                 </li>
                 {% endfor %}
             </ol>
