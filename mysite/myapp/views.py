@@ -64,3 +64,17 @@ def likes(request):
         "q_list": q_list
     }
     return render(request, 'questions.html', context=context)
+
+def register(request):
+    if request.method == "POST":
+        form = forms.RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save(request)
+            return redirect("/login/")
+    else:
+        form = forms.RegistrationForm()
+
+    context = {
+        "form": form
+    }
+    return render(request, 'registration/register.html', context=context)
