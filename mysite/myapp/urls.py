@@ -11,4 +11,5 @@ urlpatterns = [
     path('likes/', views.likes, name="likes"),
     path('login/', auth_views.LoginView.as_view()),
     path('register/', views.register, name="register"),
+    path('question_json/', views.question_json, name="question_json"),
 ]

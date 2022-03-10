@@ -12,6 +12,27 @@
             <a href="/" class="button">Home</a>
             <a class="alert button" href="/likes">Like a random question</a>
             <br>
+            {% verbatim %}
+            <div id="app">{{ message }}</div>
+            <div id="counter">
+                <button @click="count++" class="button">
+                    Count is: {{ count }}
+                </button>
+                <button @click="awesome = !awesome" class="button">
+                    Toggle
+                </button>
+                <h1 v-if="awesome">Vue is awesome!</h1>
+                <h1 v-else>Oh no 😢</h1>
+            </div>
+            <br>
+            <div id="list-rendering">
+                <ol v-for="(item, index) in todos">
+                    {{ index }}: {{ item.text }}
+                </ol>
+            </div>
+            <br>
+            {% endverbatim %}
+            <br>
             {% if request.user.is_authenticated %}
             <form action="/questions/" method="post">
                 {% csrf_token %}
@@ -23,19 +44,25 @@
                 <input type="submit" value="Submit Your Question" class="button"></input>
             </form>
             {% endif %}
-            <ol>
-                {% for q in q_list %}
-                <li>{{ q.question_text }} 
-                    - {{ q.pub_date }}, {{ q.likes }}
-                    <ul>
-                        {% for a in q.answers %}
-                        <li>{{ a.answer_text }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-            </ol>
+
+            <div id="quest-rendering">
+                {% verbatim %}
+                <div v-for="q in questions">
+                    {{ q.question_text }}
+                        - {{ q.pub_date }}, {{ q.likes }}
+                        <ul v-for="a in q.answers">
+                            <li>{{ a.answer_text }}</li>
+                        </ul>
+                </div>
+                {% endverbatim %}
+            </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/myvueexamples.js' %}"></script>
 {% endblock %}

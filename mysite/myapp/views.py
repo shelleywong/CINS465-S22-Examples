@@ -1,6 +1,6 @@
 import random
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from . import models
 from . import forms
@@ -30,22 +30,9 @@ def questions(request):
     else: # GET and other methods
         q_form = forms.QuestionForm()
 
-    q_objects = models.QuestionModel.objects.all()
-    q_list = []
-    for quest in q_objects:
-        a_objects = models.AnswerModel.objects.filter(question=quest)
-        temp = {}
-        temp["question_text"] = quest.question_text
-        temp["pub_date"] = quest.pub_date
-        temp["likes"] = quest.likes
-        temp["author"] = quest.author.username
-        temp["answers"] = a_objects
-        q_list += [temp]
-
     context = {
         "title": "CINS 465 Questions",
         "message": "Questions",
-        "q_list": q_list,
         "q_form": q_form
     }
     return render(request, 'questions.html', context=context)
@@ -78,3 +65,25 @@ def register(request):
         "form": form
     }
     return render(request, 'registration/register.html', context=context)
+
+def question_json(request):
+    q_objects = models.QuestionModel.objects.all()
+    q_dict = {}
+    q_dict["questions"] = []
+    for quest in q_objects:
+        a_objects = models.AnswerModel.objects.filter(question=quest)
+        temp = {}
+        temp["question_text"] = quest.question_text
+        temp["pub_date"] = quest.pub_date
+        temp["likes"] = quest.likes
+        temp["author"] = quest.author.username
+        temp["answers"] = []
+        for ans in a_objects:
+            temp_a = {}
+            temp_a["answer_text"] = ans.answer_text
+            temp_a["author"] = ans.author.username
+            temp_a["id"] = ans.id
+            temp["answers"] += [temp_a]
+        q_dict["questions"] += [temp]
+
+    return JsonResponse(q_dict)
