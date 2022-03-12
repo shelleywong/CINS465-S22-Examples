@@ -53,6 +53,8 @@
                         <ul v-for="a in q.answers">
                             <li>{{ a.answer_text }}</li>
                         </ul>
+                        <br>
+                        <a v-bind:href="'/answer/' + q.id + '/'">Answer this question</a>
                 </div>
                 {% endverbatim %}
             </div>

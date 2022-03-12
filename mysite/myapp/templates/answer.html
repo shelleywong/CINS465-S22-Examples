@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Answer Form{% endblock %}
+{% block content %}
+<div class="grid-x grid-padding-x">
+    <div class="medium-4 medium-offset-4 cell">
+        <h1 class="text-center">Answer</h1>
+        <form action="/answer/{{ quest_id }}/" method="post">
+            {% csrf_token %}
+            {{ a_form }}
+            <input type="submit" value="Add Answer" class="button expanded"/>
+        </form>
+    </div>
+</div>
+{% endblock %}

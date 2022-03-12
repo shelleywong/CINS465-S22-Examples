@@ -27,6 +27,24 @@ class QuestionForm(forms.Form):
         q_instance.save()
         return q_instance
 
+class AnswerForm(forms.Form):
+    answer_text = forms.CharField(
+        label='Your Answer',
+        max_length=280,
+        validators = [
+            must_not_be_all_caps,
+            validators.MinLengthValidator(2, "Must be at least 2 characters.")
+        ])
+
+    def save(self, request, quest_id):
+        q_instance = models.QuestionModel.objects.get(id=quest_id)
+        a_instance = models.AnswerModel()
+        a_instance.answer_text = self.cleaned_data["answer_text"]
+        a_instance.author = request.user
+        a_instance.question = q_instance
+        a_instance.save()
+        return a_instance
+
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(
         label="Email",

@@ -12,4 +12,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view()),
     path('register/', views.register, name="register"),
     path('question_json/', views.question_json, name="question_json"),
+    path('answer/<int:quest_id>/', views.answer_form),
 ]

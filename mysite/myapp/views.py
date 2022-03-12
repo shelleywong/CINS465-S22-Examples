@@ -77,6 +77,7 @@ def question_json(request):
         temp["pub_date"] = quest.pub_date
         temp["likes"] = quest.likes
         temp["author"] = quest.author.username
+        temp["id"] = quest.id
         temp["answers"] = []
         for ans in a_objects:
             temp_a = {}
@@ -87,3 +88,19 @@ def question_json(request):
         q_dict["questions"] += [temp]
 
     return JsonResponse(q_dict)
+
+def answer_form(request, quest_id):
+    if request.method == "POST":
+        a_form = forms.AnswerForm(request.POST)
+        if a_form.is_valid() and request.user.is_authenticated:
+            a_form.save(request, quest_id)
+            return redirect("/questions/")
+
+    else: # GET and other methods
+        a_form = forms.AnswerForm()
+
+    context = {
+        "quest_id": quest_id,
+        "a_form": a_form
+    }
+    return render(request, "answer.html", context=context)
