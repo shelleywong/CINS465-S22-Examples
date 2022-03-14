@@ -19,7 +19,7 @@ class QuestionForm(forms.Form):
             #validators.validate_slug,
             must_not_be_all_caps,
         ])
-    
+
     def save(self, request):
         q_instance = models.QuestionModel()
         q_instance.question_text = self.cleaned_data["question_text"]
