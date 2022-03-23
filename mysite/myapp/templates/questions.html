@@ -11,27 +11,7 @@
             <h1>{{ message }}</h1>
             <a href="/" class="button">Home</a>
             <a class="alert button" href="/likes">Like a random question</a>
-            <br>
-            {% verbatim %}
-            <div id="app">{{ message }}</div>
-            <div id="counter">
-                <button @click="count++" class="button">
-                    Count is: {{ count }}
-                </button>
-                <button @click="awesome = !awesome" class="button">
-                    Toggle
-                </button>
-                <h1 v-if="awesome">Vue is awesome!</h1>
-                <h1 v-else>Oh no 😢</h1>
-            </div>
-            <br>
-            <div id="list-rendering">
-                <ol v-for="(item, index) in todos">
-                    {{ index }}: {{ item.text }}
-                </ol>
-            </div>
-            <br>
-            {% endverbatim %}
+
             <br>
             {% if request.user.is_authenticated %}
             <form action="/questions/" method="post">
@@ -51,7 +31,10 @@
                     {{ q.question_text }}
                         - {{ q.pub_date }}, {{ q.likes }}
                         <ul v-for="a in q.answers">
-                            <li>{{ a.answer_text }}</li>
+                            <li>
+                                {{ a.answer_text }}
+                                - {{ a.pub_date }}
+                            </li>
                         </ul>
                         <br>
                         <a v-bind:href="'/answer/' + q.id + '/'">Answer this question</a>
@@ -66,5 +49,5 @@
 {% block scripts %}
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="{% static 'js/myvueexamples.js' %}"></script>
+<script src="{% static 'js/myvue.js' %}"></script>
 {% endblock %}

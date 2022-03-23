@@ -1,6 +1,6 @@
 $(document).foundation()
 
-//document.getElementById('date').innerHTML = Date()
+document.getElementById('date').innerHTML = Date()
 
 /* Function to return random number between 0 and 100 */
 function myRandomNum(){

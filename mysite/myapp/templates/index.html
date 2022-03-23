@@ -13,6 +13,31 @@
         </div>
     </div>
     <div class="grid-x grid-padding-x">
+        <div class="small-12 cell">
+            <br>
+            {% verbatim %}
+            <div id="app">{{ message }}</div>
+            <div id="counter">
+                <button @click="count++" class="button">
+                    Count is: {{ count }}
+                </button>
+                <button @click="awesome = !awesome" class="button">
+                    Toggle
+                </button>
+                <h1 v-if="awesome">Vue is awesome!</h1>
+                <h1 v-else>Oh no 😢</h1>
+            </div>
+            <br>
+            <div id="list-rendering">
+                <ol v-for="(item, index) in todos">
+                    {{ index }}: {{ item.text }}
+                </ol>
+            </div>
+            <br>
+            {% endverbatim %}
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
         <div class="large-8 medium-6 cell">
             {% if prev >= 0 %}
             <a href="/{{ prev }}">Prev</a>
@@ -33,4 +58,10 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/myvueexamples.js' %}"></script>
 {% endblock %}

@@ -18,6 +18,9 @@ class AnswerModel(models.Model):
     answer_text = models.CharField(max_length=280)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     question = models.ForeignKey(QuestionModel,on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(
+        'date published',
+        auto_now_add=True)
 
     def __str__(self):
         return str(self.author.username) + " " + self.answer_text
