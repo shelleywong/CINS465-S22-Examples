@@ -10,6 +10,14 @@ class QuestionModel(models.Model):
         auto_now_add=True)
     likes = models.PositiveIntegerField(default=0)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to='uploads/%Y/%m/%d/',
+        null = True
+    )
+    image_description = models.CharField(
+        max_length=280,
+        null = True
+    )
 
     def __str__(self):
         return self.question_text + " " + str(self.author.username) + " " + str(self.pub_date) + " " + str(self.likes)

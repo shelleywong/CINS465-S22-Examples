@@ -237,3 +237,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# extra stuff to ignore
+media/

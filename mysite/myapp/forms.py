@@ -19,10 +19,21 @@ class QuestionForm(forms.Form):
             #validators.validate_slug,
             must_not_be_all_caps,
         ])
+    image = forms.ImageField(
+        label="Image File",
+        required = False
+    )
+    image_description = forms.CharField(
+        label='Image Description',
+        max_length=280,
+        required=False
+    )
 
     def save(self, request):
         q_instance = models.QuestionModel()
         q_instance.question_text = self.cleaned_data["question_text"]
+        q_instance.image = self.cleaned_data["image"]
+        q_instance.image_description = self.cleaned_data["image_description"]
         q_instance.author = request.user
         q_instance.save()
         return q_instance

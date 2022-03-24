@@ -14,13 +14,9 @@
 
             <br>
             {% if request.user.is_authenticated %}
-            <form action="/questions/" method="post">
+            <form action="/questions/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ q_form.errors }}
-                <label for="question_label">
-                    {{ q_form.question_text.label }}
-                </label>
-                {{ q_form.question_text }}
+                {{ q_form }}
                 <input type="submit" value="Submit Your Question" class="button"></input>
             </form>
             {% endif %}
@@ -29,15 +25,16 @@
                 {% verbatim %}
                 <div v-for="q in questions">
                     {{ q.question_text }}
-                        - {{ q.pub_date }}, {{ q.likes }}
-                        <ul v-for="a in q.answers">
-                            <li>
-                                {{ a.answer_text }}
-                                - {{ a.pub_date }}
-                            </li>
-                        </ul>
-                        <br>
-                        <a v-bind:href="'/answer/' + q.id + '/'">Answer this question</a>
+                    <img v-bind:src="q.image" v-bind:alt="q.image_description"/>
+                    - {{ q.pub_date }}, {{ q.likes }}
+                    <ul v-for="a in q.answers">
+                        <li>
+                            {{ a.answer_text }}
+                            - {{ a.pub_date }}
+                        </li>
+                    </ul>
+                    <br>
+                    <a v-bind:href="'/answer/' + q.id + '/'">Answer this question</a>
                 </div>
                 {% endverbatim %}
             </div>

@@ -24,7 +24,7 @@ def index(request, page=0):
 
 def questions(request):
     if request.method == "POST":
-        q_form = forms.QuestionForm(request.POST)
+        q_form = forms.QuestionForm(request.POST, request.FILES)
         if q_form.is_valid() and request.user.is_authenticated:
             q_form.save(request)
             q_form = forms.QuestionForm()
@@ -76,6 +76,12 @@ def question_json(request):
         a_objects = models.AnswerModel.objects.filter(question=quest)
         temp = {}
         temp["question_text"] = quest.question_text
+        if quest.image:
+            temp["image"] = quest.image.url
+            temp["image_description"] = quest.image_description
+        else:
+            temp["image"] = ""
+            temp["image_description"] = ""
         time_diff = datetime.now(timezone.utc) - quest.pub_date
         td_sec = time_diff.total_seconds()
         if td_sec < 60:
