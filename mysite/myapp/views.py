@@ -69,7 +69,7 @@ def register(request):
     return render(request, 'registration/register.html', context=context)
 
 def question_json(request):
-    q_objects = models.QuestionModel.objects.all()
+    q_objects = models.QuestionModel.objects.all().order_by("-pub_date")
     q_dict = {}
     q_dict["questions"] = []
     for quest in q_objects:

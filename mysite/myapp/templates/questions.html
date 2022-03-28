@@ -23,18 +23,21 @@
 
             <div id="quest-rendering">
                 {% verbatim %}
-                <div v-for="q in questions">
-                    {{ q.question_text }}
-                    <img v-bind:src="q.image" v-bind:alt="q.image_description"/>
-                    - {{ q.pub_date }}, {{ q.likes }}
-                    <ul v-for="a in q.answers">
-                        <li>
-                            {{ a.answer_text }}
-                            - {{ a.pub_date }}
-                        </li>
-                    </ul>
-                    <br>
-                    <a v-bind:href="'/answer/' + q.id + '/'">Answer this question</a>
+                <div v-for="q in questions" class="card-info alert">
+                    <div class="card-info-content">
+                        <h3 class="lead">{{ q.question_text }}</h3>
+                        <img v-bind:src="q.image" v-bind:alt="q.image_description"/>
+                        <p>- {{ q.author }}, {{ q.pub_date }}, {{ q.likes }}</p>
+                        <ul v-for="a in q.answers">
+                            <li>
+                                {{ a.answer_text }}
+                                - {{ a.pub_date }}
+                            </li>
+                        </ul>
+                        <br>
+                        <a v-bind:href="'/answer/' + q.id + '/'">Answer this question</a>
+                    </div>
+
                 </div>
                 {% endverbatim %}
             </div>
