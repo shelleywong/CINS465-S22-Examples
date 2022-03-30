@@ -1,9 +1,11 @@
 from django import forms
-from . import models
 from django.core import validators
-from django.core.exceptions import ValidationError
+#from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+#from django.contrib.auth.models import User
+
+from . import models
 
 def must_not_be_all_caps(value):
     if value.isupper():
@@ -63,16 +65,16 @@ class RegistrationForm(UserCreationForm):
     )
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = [
             "username",
             "email",
             "password1",
             "password2"
         ]
-    
+
     def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()

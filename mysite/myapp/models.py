@@ -1,7 +1,9 @@
-from django.db import models
-from django.contrib.auth.models import User
 
-import datetime
+#import datetime
+from django.db import models
+from django.contrib.auth import get_user_model
+#from django.contrib.auth.models import User
+
 # Create your models here.
 class QuestionModel(models.Model):
     question_text = models.CharField(max_length=280)
@@ -9,7 +11,7 @@ class QuestionModel(models.Model):
         'date published',
         auto_now_add=True)
     likes = models.PositiveIntegerField(default=0)
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     image = models.ImageField(
         upload_to='uploads/%Y/%m/%d/',
         null = True
@@ -20,11 +22,11 @@ class QuestionModel(models.Model):
     )
 
     def __str__(self):
-        return self.question_text + " " + str(self.author.username) + " " + str(self.pub_date) + " " + str(self.likes)
+        return self.question_text + " " + str(self.author.username)
 
 class AnswerModel(models.Model):
     answer_text = models.CharField(max_length=280)
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     question = models.ForeignKey(QuestionModel,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(
         'date published',

@@ -2,7 +2,7 @@ image: docker:latest
 # When using dind, it's wise to use the overlayfs driver for
 # improved performance.
 variables:
-  DOCKER_DRIVER: overlay
+  DOCKER_DRIVER: overlay2
 services:
 - docker:dind
 
@@ -19,8 +19,8 @@ pylint:
   script:
     - python -V
     #Change paths to your project/app folders
-    - pylint --load-plugins pylint_django --disable=missing-docstring ./mysite/mysite
-    - pylint --load-plugins pylint_django --disable=missing-docstring ./mysite/myapp
+    - pylint --load-plugins pylint_django --disable=missing-docstring --django-settings-module=mysite.settings ./mysite/mysite
+    - pylint --load-plugins pylint_django --disable=missing-docstring --django-settings-module=mysite.settings ./mysite/myapp
 
 #Build test container
 build:
@@ -36,7 +36,7 @@ test:
   stage: test
   image: "$CI_REGISTRY_IMAGE:testing"
   script:
-    - cd /code
+    - cd /code/mysite
     - coverage --version
     - coverage run --source='.' ./manage.py test
     - coverage report --skip-covered

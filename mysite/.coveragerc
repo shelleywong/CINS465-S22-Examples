@@ -23,5 +23,6 @@ omit =
     ./mysite/*
     ./*/apps.py
     ./*/migrations/*
+    manage.py
 
 show_missing = True

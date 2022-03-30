@@ -1,11 +1,24 @@
 import random
 from datetime import datetime, timezone
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 from . import models
 from . import forms
+
+def get_pub_date_msg(pub_date):
+    time_diff = datetime.now(timezone.utc) - pub_date
+    td_sec = time_diff.total_seconds()
+    if td_sec < 60:
+        return "Published " + str(int(td_sec)) + " seconds ago"
+    td_min = divmod(td_sec, 60)[0]
+    if td_min < 60:
+        return "Published " + str(int(td_min)) + " minutes ago"
+    td_hr = divmod(td_min, 60)[0]
+    if td_hr < 24:
+        return "Published " + str(int(td_hr)) + " hours ago"
+    return pub_date.strftime("%d %b %Y %I:%M %p")
 
 # Create your views here.
 def index(request, page=0):
@@ -41,7 +54,7 @@ def questions(request):
 
 def likes(request):
     q_list = models.QuestionModel.objects.all()
-    if(q_list.count() > 0):
+    if q_list.count() > 0:
         some_int = random.randrange(len(q_list))
         q_list[some_int].likes += 1
         q_list[some_int].save()
@@ -82,21 +95,7 @@ def question_json(request):
         else:
             temp["image"] = ""
             temp["image_description"] = ""
-        time_diff = datetime.now(timezone.utc) - quest.pub_date
-        td_sec = time_diff.total_seconds()
-        if td_sec < 60:
-            temp["pub_date"] = "Published " + str(int(td_sec)) + " seconds ago"
-        else:
-            td_min, r = divmod(td_sec, 60)
-            if td_min < 60:
-                    temp["pub_date"] = "Published " + str(int(td_min)) + " minutes ago"
-            else:
-                td_hr, r = divmod(td_min, 60)
-                if td_hr < 24:
-                    temp["pub_date"] = "Published " + str(int(td_hr)) + " hours ago"
-                else:
-                    temp["pub_date"] = quest.pub_date.strftime("%d %b %Y %I:%M %p")
-
+        temp["pub_date"] = get_pub_date_msg(quest.pub_date)
         temp["likes"] = quest.likes
         temp["author"] = quest.author.username
         temp["id"] = quest.id
@@ -105,21 +104,8 @@ def question_json(request):
             temp_a = {}
             temp_a["answer_text"] = ans.answer_text
             temp_a["author"] = ans.author.username
-            temp_a["id"] = ans.id            
-            td_a = datetime.now(timezone.utc) - ans.pub_date
-            td_sec_a = td_a.total_seconds()
-            if td_sec_a < 60:
-                temp_a["pub_date"] = "Published " + str(int(td_sec_a)) + " seconds ago"
-            else:
-                td_min_a = divmod(td_sec_a, 60)[0]
-                if td_min_a < 60:
-                    temp_a["pub_date"] = "Published " + str(int(td_min_a)) + " minutes ago"
-                else:
-                    td_hr_a = divmod(td_min_a, 60)[0]
-                    if td_hr_a < 24:
-                        temp_a["pub_date"] = "Published " + str(int(td_hr_a)) + " hours ago"
-                    else:
-                        temp_a["pub_date"] = ans.pub_date.strftime("%d %b %Y %I:%M %p")
+            temp_a["id"] = ans.id
+            temp_a["pub_date"] = get_pub_date_msg(ans.pub_date)
             temp["answers"] += [temp_a]
         q_dict["questions"] += [temp]
 
