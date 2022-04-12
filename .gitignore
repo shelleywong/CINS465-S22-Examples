@@ -240,4 +240,9 @@ Temporary Items
 # extra stuff to ignore
 media/
 
+# SSL/TLS stuff
 nginx/ssl
+
+# PostgreSQL stuff
+.my_pgpass
+.pg_service.conf
