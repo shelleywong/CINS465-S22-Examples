@@ -12,6 +12,8 @@ services:
     #  ports:
     #     - 8000:8000
     user: 1001:1002
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/code/mysite/cins465-cloudkey.json
     #user: 1000:1000 # For Linux users
     #command: python /code/mysite/manage.py runserver 0.0.0.0:8000
     working_dir: /code/mysite

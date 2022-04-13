@@ -246,3 +246,5 @@ nginx/ssl
 # PostgreSQL stuff
 .my_pgpass
 .pg_service.conf
+
+cins465-cloudkey.json
