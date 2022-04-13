@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
+from pathlib import Path
+from dotenv import load_dotenv # for environment variables
+load_dotenv()
 
 from pathlib import Path
 
@@ -88,11 +92,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django',
-        'USER': 'django',
-        'PASSWORD': 'django',
-        'HOST': '34.68.108.72',
-        'PORT': '5432',
+        'NAME': str(os.getenv('DBNAME')),
+        'USER': str(os.getenv('DBUSER')),
+        'PASSWORD': str(os.getenv('DBPASSWORD')),
+        'HOST': str(os.getenv('DBHOST')),
+        'PORT': str(os.getenv('DBPORT')),
     }
 }
 
