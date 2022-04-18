@@ -248,3 +248,4 @@ nginx/ssl
 .pg_service.conf
 
 cins465-cloudkey.json
+client_secret_oauth2.json

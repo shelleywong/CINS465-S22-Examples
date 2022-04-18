@@ -10,6 +10,7 @@ urlpatterns = [
     path('questions/', views.questions, name="questions"),
     path('likes/', views.likes, name="likes"),
     path('login/', auth_views.LoginView.as_view()),
+    path('logout/', views.logout_view),
     path('register/', views.register, name="register"),
     path('question_json/', views.question_json, name="question_json"),
     path('answer/<int:quest_id>/', views.answer_form),

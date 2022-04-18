@@ -13,7 +13,12 @@
             {{ form.username }}
             <label>{{ form.password.label_tag }}</label>
             {{ form.password }}
-            <input type="submit" value="Login" class="button expanded"/>
+            <input type="submit" value="Login" class="button expanded" />
+            <p class="text-center">- Or -</p>
+            <a href="{% url "social:begin" "google-oauth2" %}" class="button large expanded">
+                Sign in with Google
+            </a>
+
             <a href="/register/" class="secondary button expanded">Register</a>
             <input type="hidden" name="next" value="{{ request.GET.next }}">
         </form>

@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 from . import models
 from . import forms
@@ -127,3 +128,7 @@ def answer_form(request, quest_id):
         "a_form": a_form
     }
     return render(request, "answer.html", context=context)
+
+def logout_view(request):
+    logout(request)
+    return redirect("/login/")

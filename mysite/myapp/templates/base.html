@@ -11,6 +11,25 @@
 </head>
 
 <body>
+    <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="menu">
+            <li class="menu-text">CINS 465</li>
+            {% if request.user.is_authenticated %}
+            <li><a href="/">Home</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+            {% if request.user.is_authenticated %}
+            <li><a href="/logout" class="button">Logout</a></li>
+            {% else %}
+            <li><a href="/login" class="button">Login</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
     {% block content %}{% endblock %}
     <script src="{% static 'js/vendor/jquery.js' %}"></script>
     <script src="{% static 'js/vendor/what-input.js' %}"></script>
