@@ -64,4 +64,18 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="{% static 'js/myvueexamples.js' %}"></script>
+<script type="module">
+    import init, { greet, add } from '/wasm/hello_wasm.js';
+    async function run(){
+        await init();
+   // Afterwards we can use all functionality defined in wasm.
+        greet("CINS465");
+        const sum = add(1,2);
+        console.log(`1 + 2 = ${sum}`);
+        if (sum !== 3)
+            throw new Error("wasm addition doesn't work!");
+
+    }
+    run();
+</script>
 {% endblock %}

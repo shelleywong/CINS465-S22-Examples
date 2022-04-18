@@ -32,6 +32,14 @@ services:
   #   links:
   #     - web:web
 
+  wasm:
+    build: ./wasm/
+    environment:
+     - USER=shelleywong
+    volumes:
+     - .:/code
+    working_dir: /code/hello-wasm/
+
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -46,6 +54,7 @@ services:
      - $PWD/Caddyfile:/etc/caddy/Caddyfile
      - $PWD/mysite/static:/srv/static/
    #  - $PWD/mysite/myapp/static:/srv/wasm/
+     - $PWD/hello-wasm/pkg/:/srv/wasm/
      - caddy_data:/data
      - caddy_config:/config
 

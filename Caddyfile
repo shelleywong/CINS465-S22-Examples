@@ -3,7 +3,6 @@ shelley.alumnimentor.org {
     file_server *
     @notStatic {
         not path /wasm/*
-        not path /static/*
     }
     reverse_proxy @notStatic web:8000
     log {
